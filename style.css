@@ -34,7 +34,7 @@ h1 {
 }
 
 /* Center img element and set fallback background color */
-img {
+img.square {
   display: block;
   margin: 5% auto;
   max-width: 60%;
@@ -330,4 +330,52 @@ nav {
 
 *::-webkit-scrollbar-button:end:increment {
   background-color: #a282a2;
+}
+
+.embed {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #1c1a1c;
+  color: #a282A2;
+  border-radius: 10px;
+  border: solid 5px #826982;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  max-width: 500px;
+  font-family: Arial, sans-serif;
+}
+.embed-thumbnail {
+  margin-right: 10px;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.embed-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.embed-content {
+  flex: 1;
+  overflow: hidden;
+}
+.embed-title {
+  color: #f8f8ff;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.embed-link {
+  font-size: 0.9em;
+  margin: 5px 0;
+}
+.embed-link a {
+  color: #f8f8ff;
+  text-decoration: none;
 }
