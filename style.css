@@ -273,8 +273,7 @@ nav {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #a282a2;
-  box-shadow: inset 0 0 0 2px #6d4d6d;
+  background-color: #826982;
 }
 
 ::-webkit-scrollbar-track {
@@ -292,12 +291,10 @@ nav {
 
 ::-webkit-scrollbar-button:start:decrement {
   background-color: #a282a2;
-  box-shadow: inset 0 0 0 2px #6d4d6d;
 }
 
 ::-webkit-scrollbar-button:end:increment {
   background-color: #a282a2;
-  box-shadow: inset 0 0 0 2px #6d4d6d;
 }
 
 ::-webkit-scrollbar-thumb-x {
@@ -306,7 +303,7 @@ nav {
 
 /* For Firefox */
 * {
-  scrollbar-color: #a282a2 #1c1a1c;
+  scrollbar-color: #826982 #1c1a1c;
   scrollbar-width: thin;
 }
 
@@ -315,8 +312,7 @@ nav {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #a282a2;
-  box-shadow: inset 0 0 0 2px #6d4d6d;
+  background-color: #826982;
 }
 
 *::-webkit-scrollbar-track {
@@ -325,15 +321,13 @@ nav {
 }
 
 *::-webkit-scrollbar-thumb-x {
-  box-shadow: inset 0 0 0 2px #6d4d6d;
+  background-color: #826982;
 }
 
 *::-webkit-scrollbar-button:start:decrement {
   background-color: #a282a2;
-  box-shadow: inset 0 0 0 2px #6d4d6d;
 }
 
 *::-webkit-scrollbar-button:end:increment {
   background-color: #a282a2;
-  box-shadow: inset 0 0 0 2px #6d4d6d;
 }
