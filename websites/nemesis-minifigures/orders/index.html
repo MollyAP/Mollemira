@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="../">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script>(function(){var p=location.pathname.replace(/\/+$/g,"");if(!(p==="/admin"||p.indexOf("/admin/")!==-1)){document.documentElement.classList.add("preview-gate-pending");}})();</script>
+    <title>Orders</title>
+    <meta name="description" content="Look up Nemesis Minifigures order status and tracking information.">
+    <link rel="icon" type="image/png" href="assets/brand/Favicon.png">
+    <link rel="apple-touch-icon" href="assets/brand/Favicon.png">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Nemesis Minifigures">
+    <meta property="og:title" content="Orders | Nemesis Minifigures">
+    <meta property="og:description" content="Look up Nemesis Minifigures order status and tracking information.">
+    <meta property="og:url" content="https://nemesisminifigures.com/orders">
+    <meta property="og:image" content="https://nemesisminifigures.com/assets/brand/share-card.png?v=20260629-upload-queue">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Orders | Nemesis Minifigures">
+    <meta name="twitter:description" content="Look up Nemesis Minifigures order status and tracking information.">
+    <meta name="twitter:image" content="https://nemesisminifigures.com/assets/brand/share-card.png?v=20260629-upload-queue">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20260820-portfolio5">
+</head>
+
+<body data-page="orders">
+    <div class="top-strip"></div>
+    <header class="site-header">
+        <div class="nav-shell">
+            <nav class="nav-left"><a class="nav-link" href="./">Home</a><a class="nav-link" href="catalog/">Minifigures</a><a class="nav-link" href="about/">About</a></nav>
+            <a class="logo-lockup" href="./"><img src="assets/brand/NemesisMinifigures_Logo.png" alt="Nemesis Minifigures"></a>
+            <div class="nav-right"><a class="nav-link" href="orders/">Orders</a><a class="nav-link" href="preorders/">Preorders</a><a class="nav-link" href="updates/">Updates</a><a class="admin-avatar-link admin-nav-link hidden" href="admin/panel" aria-label="Admin account"></a><a class="nav-link cart-icon-link" href="checkout/" aria-label="Cart"><span class="material-symbols-outlined">shopping_cart</span><span class="cart-count-badge" data-cart-count></span></a></div>
+            <div class="nav-mobile-actions"><a class="nav-link cart-icon-link" href="checkout/" aria-label="Cart"><span class="material-symbols-outlined">shopping_cart</span><span class="cart-count-badge" data-cart-count></span></a><a class="admin-avatar-link admin-nav-link hidden" href="admin/panel" aria-label="Admin account"></a></div><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+    <main class="form-shell">
+        <div class="form-panel">
+            <span class="kicker">Order Lookup</span>
+            <h1>Find Order</h1>
+            <form id="orderLookupForm" class="form-grid">
+                <label>Email <input id="lookupEmail" class="field" type="email" required></label>
+                <label>Order Number <input id="lookupOrderNumber" class="field" required></label>
+                <button class="btn primary" type="submit">Find Order</button>
+            </form>
+            <div id="orderLookupResult"></div>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
+    <script src="app.js?v=20260820-portfolio5"></script>
+</body>
+
+</html>

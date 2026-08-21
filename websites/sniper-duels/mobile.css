@@ -1,0 +1,111 @@
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+main,
+.hero,
+.hero > *,
+.panel,
+.market-card,
+.chart {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Keep unequal cards at their natural content height. */
+.split,
+.inspect-grid {
+  align-items: start;
+}
+
+.discord {
+  align-self: start;
+  margin-top: 57px;
+  padding: 30px 32px;
+}
+
+.history-panel {
+  align-self: start;
+}
+
+.hero {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+}
+
+.market-card {
+  height: auto;
+  min-height: 400px;
+}
+
+.market-meta {
+  padding-bottom: 2px;
+}
+
+.hero-copy,
+.hero h1,
+.hero h1 em {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.hero h1 {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+@media (max-width: 1100px) and (min-width: 901px) {
+  .hero h1 {
+    font-size: clamp(40px, 5vw, 54px);
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .discord {
+    margin-top: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  header nav {
+    padding-inline: 16px;
+  }
+
+  .brand img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 10.5vw, 42px);
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .hero-copy > div,
+  .index {
+    flex-wrap: wrap;
+  }
+
+  .market-card {
+    width: 100%;
+    min-height: 385px;
+    padding: 20px;
+    overflow: hidden;
+  }
+
+  .index strong {
+    font-size: 30px;
+  }
+}

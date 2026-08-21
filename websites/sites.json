@@ -1,0 +1,16 @@
+{
+  "sites": [
+        {
+      "title": "Nemesis Minifigures",
+      "folder": "nemesis-minifigures",
+      "role": "Development",
+      "description": "Website for selling custom collectables."
+    },
+    {
+      "title": "Sniper Duels",
+      "folder": "sniper-duels",
+      "role": "Development",
+      "description": "Website for tracking weapon values."
+    }
+  ]
+}

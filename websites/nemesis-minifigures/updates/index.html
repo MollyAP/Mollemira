@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="../">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script>(function(){var p=location.pathname.replace(/\/+$/g,"");if(!(p==="/admin"||p.indexOf("/admin/")!==-1)){document.documentElement.classList.add("preview-gate-pending");}})();</script>
+    <title>Updates</title>
+    <meta name="description" content="Read production updates, release notes, and drop announcements from Nemesis Minifigures.">
+    <link rel="icon" type="image/png" href="assets/brand/Favicon.png">
+    <link rel="apple-touch-icon" href="assets/brand/Favicon.png">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Nemesis Minifigures">
+    <meta property="og:title" content="Updates | Nemesis Minifigures">
+    <meta property="og:description" content="Read production updates, release notes, and drop announcements from Nemesis Minifigures.">
+    <meta property="og:url" content="https://nemesisminifigures.com/updates">
+    <meta property="og:image" content="https://nemesisminifigures.com/assets/brand/share-card.png?v=20260629-upload-queue">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Updates | Nemesis Minifigures">
+    <meta name="twitter:description" content="Read production updates, release notes, and drop announcements from Nemesis Minifigures.">
+    <meta name="twitter:image" content="https://nemesisminifigures.com/assets/brand/share-card.png?v=20260629-upload-queue">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20260820-portfolio5">
+</head>
+
+<body data-page="updates">
+    <div class="top-strip"></div>
+    <header class="site-header">
+        <div class="nav-shell">
+            <nav class="nav-left"><a class="nav-link" data-nav="home" href="./">Home</a><a class="nav-link"
+                    data-nav="catalog" href="catalog/">Minifigures</a><a class="nav-link" data-nav="about"
+                    href="about/">About</a></nav><a class="logo-lockup" href="./"><img
+                    src="assets/brand/NemesisMinifigures_Logo.png" alt="Nemesis Minifigures"></a>
+            <div class="nav-right"><a class="nav-link" href="orders/">Orders</a><a class="nav-link" href="preorders/">Preorders</a><a class="nav-link active"
+                    href="updates/">Updates</a><a class="admin-avatar-link admin-nav-link hidden" href="admin/panel" aria-label="Admin account"></a><a class="nav-link cart-icon-link" href="checkout/" aria-label="Cart"><span class="material-symbols-outlined">shopping_cart</span><span class="cart-count-badge" data-cart-count></span></a></div><div class="nav-mobile-actions"><a class="nav-link cart-icon-link" href="checkout/" aria-label="Cart"><span class="material-symbols-outlined">shopping_cart</span><span class="cart-count-badge" data-cart-count></span></a><a class="admin-avatar-link admin-nav-link hidden" href="admin/panel" aria-label="Admin account"></a></div><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+    <main>
+        <section class="page-banner">
+            <h1>Updates</h1>
+        </section>
+        <section class="section updates-section">
+            <article id="updatesComposer" class="updates-composer hidden" aria-label="Create update post">
+                <div class="updates-composer-head">
+                    <div class="updates-author">
+                        <span id="updatesComposerAvatar" class="updates-avatar"></span>
+                        <div>
+                            <strong id="updatesComposerName">Admin</strong>
+                            <span>Posting as admin</span>
+                        </div>
+                    </div>
+                    <button id="clearUpdatePost" class="btn small" type="button">Clear</button>
+                </div>
+
+                <form id="updatePostForm" class="updates-form">
+                    <input id="updatePostTitle" class="field updates-title-input" type="text" placeholder="Post title" maxlength="160" required>
+
+                    <div class="updates-editor-toolbar" aria-label="Editor toolbar">
+                        <select id="updateBlockStyle" aria-label="Text style">
+                            <option value="p">Paragraph</option>
+                            <option value="h3">Heading</option>
+                        </select>
+                        <button type="button" data-update-format="bold" aria-label="Bold" title="Bold"><span class="material-symbols-outlined">format_bold</span></button>
+                        <button type="button" data-update-format="italic" aria-label="Italic" title="Italic"><span class="material-symbols-outlined">format_italic</span></button>
+                        <button type="button" data-update-format="underline" aria-label="Underline" title="Underline"><span class="material-symbols-outlined">format_underlined</span></button>
+                        <button type="button" data-update-format="insertUnorderedList" aria-label="Bulleted list" title="Bulleted list"><span class="material-symbols-outlined">format_list_bulleted</span></button>
+                        <button type="button" data-update-format="insertOrderedList" aria-label="Numbered list" title="Numbered list"><span class="material-symbols-outlined">format_list_numbered</span></button>
+                        <button id="openUpdateLinkPanel" type="button" aria-label="Add link" title="Add link"><span class="material-symbols-outlined">link</span></button>
+                    </div>
+
+                    <div id="updateLinkPanel" class="updates-link-panel hidden">
+                        <input id="updateLinkUrl" class="field" type="url" placeholder="https://example.com">
+                        <button id="applyUpdateLink" class="btn small primary" type="button">Apply</button>
+                        <button id="cancelUpdateLink" class="btn small" type="button">Cancel</button>
+                    </div>
+
+                    <div id="updatePostBody" class="updates-editor" contenteditable="true" role="textbox" aria-label="Post content" data-placeholder="Write the update..."></div>
+
+                    <label class="updates-upload">Images
+                        <input id="updatePostImages" class="field" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+                    </label>
+
+                    <div id="updateImagePreview" class="updates-image-preview"></div>
+
+                    <div class="updates-form-footer">
+                        <p id="updatePostMessage" class="admin-help-text" aria-live="polite"></p>
+                        <button class="btn primary" type="submit">
+                            <span class="material-symbols-outlined btn-icon">send</span>
+                            Publish Update
+                        </button>
+                    </div>
+                </form>
+            </article>
+
+            <div id="updatesFeed" class="updates-feed" aria-live="polite"></div>
+        </section>
+    </main>
+    <footer class="site-footer"><span>Nemesis Minifigures</span><a href="catalog/">Browse catalogue</a></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
+    <script src="app.js?v=20260820-portfolio5"></script>
+</body>
+
+</html>

@@ -1,61 +1,270 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="shortcut icon" type="image/x-icon" href="./images/embed-icon.png">
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <meta property="og:title" content="Mollemira">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mollemira.com">
-    <meta property="og:image" content="./images/embed-icon.png">
-    <meta property="og:image:alt" content="Mollemira embed Image">
-    <meta property="og:description" content="Homepage of my portfolio.">
-    <meta property="og:site_name" content="Mollemira">
-    <title>Mollemira</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portfolio of Molly Porphura, a full-stack software developer and UI/UX designer.">
+  <meta name="theme-color" content="#a282a2">
+  <title>Mollemira</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <script>
+    (() => {
+      const saved = localStorage.getItem('mollemira-theme');
+      const theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
 
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="#">Mollemira</a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="art.html">Art</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="links.html">Contact</a></li>
-            </ul>
-            <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
-            </div>
-        </nav>
-    </header>
-    
-    <main class="content">
-        <div class="box">
+  <button type="button" class="theme-toggle" aria-label="Switch to dark mode" title="Toggle appearance">
+    <span class="theme-icon theme-icon-light" aria-hidden="true"><i class="bi bi-sun"></i></span>
+    <span class="theme-icon theme-icon-dark" aria-hidden="true"><i class="bi bi-moon-stars"></i></span>
+  </button>
 
-            <h1>Welcome to Molly's Website!</h1>
 
-            <img style="max-width: 30%; width: 100%;" src="./images/molly-brand-icon.png" class="square"
-                alt="Molly's Brand Icon">
+  <header>
+    <a class="brand" href="#top" aria-label="Molly Porphura, back to top"><i aria-hidden="true"></i>Molly Porphura</a>
+    <nav class="mini-nav" aria-label="Primary navigation">
+      <a href="#projects">Projects</a>
+      <a href="#websites">Websites</a>
+      <a href="#skills">Skills</a>
+    </nav>
+    <span class="role">Developer &amp; designer</span>
+  </header>
 
-            <p>Nice to meet your acquaintance, I'm Molly Porphura. As a professional graphic designer, I've always had
-                a critical eye for visuals, which is why I decided to become a front-end software developer. Since I was
-                a child, I've always hated the terribly designed user interfaces of the time, so as an adult, I've come
-                to believe that I have an obligation as a great asset to apply my skills to improve upon anything I
-                can. All my previous work was simply a way to get me to a spot where I could. Not to say I didn't gain
-                any skills along the way; in fact, that's exactly what I did: Project Management, Working on Deadlines,
-                Working with a Team. All skills I will apply in any future positions I take.</p>
+  <main id="top">
+    <section class="intro reveal" data-section="intro">
+      <p class="eyebrow">Full-stack development · UI/UX</p>
+      <h1>Hi, I’m Molly.</h1>
+      <p>I’m a full-stack software developer and UI/UX designer. I build websites, desktop software, e-commerce systems, and tools for creative work.</p>
+      <div class="intro-actions">
+        <a class="email" href="mailto:mollemira@mollemira.com">mollemira@mollemira.com</a>
+        <button class="copy-email" type="button" data-email="mollemira@mollemira.com" aria-label="Copy email address">Copy</button>
+      </div>
+      <button class="quiet-hint" type="button" data-command-open aria-label="Message Molly"><span class="hint-desktop">Press here or <span class="shortcut"><kbd class="shortcut-key shortcut-modifier-key" data-shortcut-modifier aria-label="Command"><i class="bi bi-command" aria-hidden="true"></i></kbd><span aria-hidden="true">+</span><kbd class="shortcut-key">K</kbd></span> to message</span><span class="hint-mobile">Press here to message</span></button>
+    </section>
 
+    <section class="projects reveal" id="projects" aria-labelledby="projects-heading" data-section="projects">
+      <div class="section-title-row">
+        <h2 id="projects-heading">Demos of my projects</h2>
+      </div>
+
+      <article class="project interactive-surface" data-project="Penta">
+        <div>
+          <p class="project-index">01</p>
+          <h3>Penta</h3>
+          <p class="project-type">Personal project</p>
+          <button type="button" class="project-preview" data-project-image="/assets/penta.webp" data-project-title="Penta" aria-label="Enlarge Penta screenshot">
+            <img src="/assets/penta.webp" alt="Penta digital art studio interface" loading="lazy">
+            <span class="project-preview-zoom" aria-hidden="true"><i class="bi bi-search"></i></span>
+          </button>
         </div>
-    </main>
+        <div>
+          <p>A digital art studio built for the browser. It has layers, brushes, text, pixel and vector tools, selections, animation frames, image adjustments, and export options.</p>
+          <p>I’m also developing a desktop version with more publishing, color-management, and creative-production tools.</p>
+          <a class="project-link" href="/penta/">Open Penta <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
 
-    <script src="./app.js"></script>
+      <article class="project interactive-surface" data-project="Album">
+        <div>
+          <p class="project-index">02</p>
+          <h3>Album</h3>
+          <p class="project-type">Personal project</p>
+          <button type="button" class="project-preview" data-project-image="/assets/album.webp" data-project-title="Album" aria-label="Enlarge Album screenshot">
+            <img src="/assets/album.webp" alt="Album private media archive interface" loading="lazy">
+            <span class="project-preview-zoom" aria-hidden="true"><i class="bi bi-search"></i></span>
+          </button>
+        </div>
+        <div>
+          <p>A private, local-first media archive for organizing a personal photo and media library between a PC and trusted devices.</p>
+          <p>It combines desktop organization, search, recovery tools, and secure phone access.</p>
+          <a class="project-link" href="/album/">Open Album <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </section>
+
+    <section class="websites reveal" id="websites" aria-labelledby="websites-heading" data-section="websites">
+      <div class="section-title-row websites-title-row">
+        <div>
+          <h2 id="websites-heading">Websites I’ve worked on</h2>
+          <p class="websites-intro">Demos of sites I’ve built for clients. Pick one to open it without leaving my portfolio.</p>
+        </div>
+        <div class="carousel-controls" aria-label="Website carousel controls">
+          <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous website">←</button>
+          <button type="button" class="carousel-arrow carousel-next" aria-label="Next website">→</button>
+        </div>
+      </div>
+
+      <div class="website-carousel" aria-live="polite">
+        <div class="website-carousel-track" tabindex="0" aria-label="Websites I’ve worked on">
+          <div class="website-carousel-inner"></div>
+        </div>
+        <div class="website-carousel-status" aria-hidden="true"><span></span></div>
+      </div>
+      <p class="websites-empty" hidden>No website demos are listed yet.</p>
+    </section>
+
+    <section class="experience reveal" id="experience" aria-labelledby="experience-heading" data-section="experience">
+      <div class="section-title-row">
+        <h2 id="experience-heading">My experience</h2>
+        <span class="section-count">10+ yrs</span>
+      </div>
+      <p>I’ve worked on public websites and custom tools for CodeCrew and the Memphis Museums of Science &amp; History, along with contract work in e-commerce, game systems, and developer tooling.</p>
+      <p>My work includes interface design, frontend and backend development, checkout and payments, database-backed applications, APIs, deployment, production support, and desktop software.</p>
+    </section>
+
+    <section id="skills" class="skills reveal" aria-labelledby="skills-heading" data-section="skills">
+      <div class="section-title-row">
+        <h2 id="skills-heading">My skills.</h2>
+        <span class="section-count">06 areas</span>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group interactive-surface"><span class="skill-number">01</span><h3>Frontend &amp; UI</h3><p>React, TypeScript, JavaScript, HTML, CSS, responsive interfaces, accessibility, interaction design, component systems.</p></div>
+        <div class="skill-group interactive-surface"><span class="skill-number">02</span><h3>Backend &amp; data</h3><p>Go, Python, FastAPI, PostgreSQL, SQLite, REST APIs, data modeling, authentication, integrations, server-side workflows.</p></div>
+        <div class="skill-group interactive-surface"><span class="skill-number">03</span><h3>Desktop &amp; graphics</h3><p>C#, .NET 8, Avalonia UI, SkiaSharp, PyQt6, OpenCV, creative-tool interfaces, media workflows, native application architecture.</p></div>
+        <div class="skill-group interactive-surface"><span class="skill-number">04</span><h3>Infrastructure &amp; delivery</h3><p>Docker, Caddy, Linux deployment, Git, production support, payments, shipping integrations, external APIs, operational tooling.</p></div>
+        <div class="skill-group interactive-surface"><span class="skill-number">05</span><h3>ML &amp; search</h3><p>PyTorch, Transformers, ChromaDB, image analysis, semantic search concepts, computer-vision tooling.</p></div>
+        <div class="skill-group interactive-surface"><span class="skill-number">06</span><h3>Design</h3><p>UI/UX, visual systems, wireframing, prototyping, information architecture, graphic design, Google UX Design certification.</p></div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <footer><span>© 2026 Molly Porphura</span></footer>
+  <button type="button" class="back-to-top" aria-label="Back to top"><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
+
+  <dialog class="command-palette email-composer" aria-label="Email Molly">
+    <form method="dialog" class="composer-form">
+      <div class="command-input-wrap composer-subject-row">
+        <span aria-hidden="true">@</span>
+        <input class="command-input composer-subject" type="text" placeholder="What’s this about?" autocomplete="off" aria-label="Email subject" maxlength="180">
+        <button class="composer-close" type="button" aria-label="Close email composer"><kbd><span class="composer-close-desktop">esc</span><span class="composer-close-mobile" aria-hidden="true">×</span></kbd></button>
+      </div>
+
+      <div class="command-input-wrap composer-email-row">
+        <span aria-hidden="true">↩</span>
+        <input class="command-input composer-email" type="email" placeholder="Your email address" autocomplete="email" aria-label="Your email address" maxlength="254">
+        <span class="composer-email-hint">Reply address</span>
+      </div>
+
+      <div class="composer-toolbar" role="toolbar" aria-label="Message formatting">
+        <button type="button" data-format="bold" aria-label="Bold"><strong>B</strong></button>
+        <button type="button" data-format="italic" aria-label="Italic"><em>I</em></button>
+        <button type="button" data-format="underline" aria-label="Underline"><u>U</u></button>
+        <span class="toolbar-divider" aria-hidden="true"></span>
+        <button type="button" data-format="insertUnorderedList" aria-label="Bulleted list">• List</button>
+        <button type="button" data-format="insertOrderedList" aria-label="Numbered list">1. List</button>
+        <button type="button" data-add-link aria-label="Add link">Link</button>
+        <span class="toolbar-spacer"></span>
+        <button type="button" data-format="undo" aria-label="Undo">↶</button>
+        <button type="button" data-format="redo" aria-label="Redo">↷</button>
+      </div>
+
+      <div class="composer-link-panel" aria-hidden="true">
+        <i class="bi bi-link-45deg" aria-hidden="true"></i>
+        <input class="composer-link-input" type="url" inputmode="url" autocomplete="url" placeholder="Paste or type a link…" aria-label="Link URL">
+        <button type="button" class="composer-link-apply" aria-label="Apply link" title="Apply link"><i class="bi bi-check-lg" aria-hidden="true"></i></button>
+        <button type="button" class="composer-link-dismiss" aria-label="Close link editor">×</button>
+      </div>
+
+      <div class="composer-body" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Write your message…" spellcheck="true"></div>
+
+      <div class="composer-attachments" hidden>
+        <div class="attachment-list" aria-live="polite"></div>
+      </div>
+
+      <div class="composer-footer">
+        <div class="composer-actions-left">
+          <label class="attach-button" title="Attach files">
+            <input class="attachment-input" type="file" multiple hidden>
+            <span aria-hidden="true">＋</span> Attach
+          </label>
+          <button type="button" class="clear-composer">Clear</button>
+          <span class="composer-recipient">To: mollemira@mollemira.com</span>
+        </div>
+        <button type="button" class="composer-send">Send <span aria-hidden="true">→</span></button>
+      </div>
+    </form>
+  </dialog>
+
+
+  <dialog class="site-browser" aria-label="Website preview browser">
+    <div class="browser-window">
+      <div class="browser-chrome">
+        <div class="browser-navigation">
+          <button type="button" class="browser-nav browser-back" aria-label="Back">←</button>
+          <button type="button" class="browser-nav browser-forward" aria-label="Forward">→</button>
+          <button type="button" class="browser-nav browser-reload" aria-label="Reload">↻</button>
+        </div>
+        <div class="browser-address" title="Preview address">
+          <span class="browser-lock" aria-hidden="true">◈</span>
+          <span class="browser-address-text">mollemira.com</span>
+        </div>
+        <div class="browser-window-controls" aria-label="Window controls">
+          <button type="button" class="browser-control browser-minimize" aria-label="Minimize website">−</button>
+          <button type="button" class="browser-control browser-maximize" aria-label="Maximize website">□</button>
+          <button type="button" class="browser-control browser-close" aria-label="Close website">×</button>
+        </div>
+      </div>
+      <div class="browser-loading" aria-hidden="true"><span></span></div>
+      <div class="browser-stage">
+        <iframe class="browser-frame" title="Website preview" loading="eager"></iframe>
+        <div class="browser-error" hidden>
+          <strong>This preview couldn’t load.</strong>
+          <span>You can still open the site in a new tab.</span>
+        </div>
+      </div>
+      <div class="browser-statusbar">
+        <span class="browser-site-title">Website</span>
+        <span class="browser-tip">Demo is not fully functional</span>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="browser-dock" hidden role="group" aria-label="Minimized website">
+    <button type="button" class="browser-dock-restore" aria-label="Restore minimized website">
+      <span class="browser-dock-dot" aria-hidden="true"></span>
+      <span class="browser-dock-title">Website</span>
+    </button>
+    <div class="browser-dock-controls" aria-label="Window controls">
+      <button type="button" class="browser-control browser-dock-minimize" aria-label="Restore minimized website">−</button>
+      <button type="button" class="browser-control browser-dock-maximize" aria-label="Restore and maximize website">□</button>
+      <button type="button" class="browser-control browser-dock-close" aria-label="Close website">×</button>
+    </div>
+  </div>
+
+  <dialog class="project-lightbox" aria-label="Project image viewer">
+    <div class="project-viewer">
+      <div class="project-viewer-stage">
+        <div class="project-viewer-canvas">
+          <img class="project-lightbox-image" alt="" draggable="false">
+        </div>
+
+        <div class="project-viewer-titlebar">
+          <span class="project-lightbox-title">Project</span>
+          <span class="project-lightbox-size"></span>
+        </div>
+
+        <div class="project-viewer-controls" aria-label="Image controls">
+          <button type="button" class="project-viewer-reset" aria-label="Fit image to view"><i class="bi bi-arrows-angle-contract" aria-hidden="true"></i></button>
+          <button type="button" class="project-viewer-zoom-out" aria-label="Zoom out"><i class="bi bi-dash-lg" aria-hidden="true"></i></button>
+          <button type="button" class="project-viewer-zoom-in" aria-label="Zoom in"><i class="bi bi-plus-lg" aria-hidden="true"></i></button>
+          <span class="project-viewer-divider" aria-hidden="true"></span>
+          <button type="button" class="project-lightbox-close" aria-label="Close image viewer"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+        </div>
+
+        <div class="project-viewer-zoom-readout" aria-live="polite">100%</div>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
 </body>
-
 </html>
