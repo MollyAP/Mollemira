@@ -930,8 +930,8 @@ html[data-theme="dark"] .theme-icon-dark { opacity:1; transform:rotate(0deg) sca
 .resume-viewer-close { width:36px; padding:0; }
 .resume-viewer-actions a:hover,.resume-viewer-actions a:focus-visible,.resume-viewer-close:hover,.resume-viewer-close:focus-visible { border-color:var(--line); background:var(--paper); color:var(--ink); outline:none; }
 .resume-viewer-actions a:active,.resume-viewer-close:active { transform:scale(.95); }
-.resume-viewer-stage { min-height:0; flex:1; padding:12px; background:color-mix(in srgb,var(--ground) 88%,var(--paper)); }
-.resume-viewer-frame { display:block; width:100%; height:100%; border:1px solid var(--line); border-radius:12px; background:white; }
+.resume-viewer-stage { min-height:0; flex:1; overflow:auto; padding:12px; background:color-mix(in srgb,var(--ground) 88%,var(--paper)); overscroll-behavior:contain; touch-action:pan-x pan-y pinch-zoom; -webkit-overflow-scrolling:touch; }
+.resume-viewer-page { display:block; width:min(100%,850px); height:auto; margin:0 auto; border:1px solid var(--line); border-radius:12px; background:white; box-shadow:0 12px 35px rgba(41,38,43,.14); }
 
 html[data-theme="dark"] .resume-viewer { background:var(--paper); }
 html[data-theme="dark"] .resume-viewer-bar { background:var(--ground); }
@@ -943,7 +943,7 @@ html[data-theme="dark"] .resume-viewer-stage { background:#131114; }
   .resume-viewer-actions a { width:36px; padding:0; }
   .resume-viewer-actions a span { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
   .resume-viewer-stage { padding:6px; }
-  .resume-viewer-frame { border-radius:9px; }
+  .resume-viewer-page { width:100%; border-radius:9px; }
 }
 
 /* Remove old lightbox-shell chrome if cached CSS remains earlier in the sheet */

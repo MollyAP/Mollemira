@@ -437,14 +437,12 @@
 
   projectLightbox?.addEventListener('pointercancel', () => { projectLightboxBackdropPointer = null; });
 
-  // Resume viewer: the PDF stays inside the portfolio while offering direct
-  // open and download actions in the viewer chrome.
+  // Resume viewer: render a browser-independent page image in the portfolio
+  // while preserving direct PDF open and download actions in the viewer chrome.
   const resumeViewer = document.querySelector('.resume-viewer');
-  const resumeFrame = document.querySelector('.resume-viewer-frame');
 
   const openResumeViewer = () => {
-    if (!resumeViewer || !resumeFrame) return;
-    if (!resumeFrame.getAttribute('src')) resumeFrame.src = resumeFrame.dataset.src || '/assets/resume.pdf';
+    if (!resumeViewer) return;
     if (!resumeViewer.open) resumeViewer.showModal();
   };
 
