@@ -41,8 +41,11 @@ h1,h2,h3 { font-weight:600; letter-spacing:-.04em; }
 .eyebrow { margin:0 0 14px !important; color:var(--muted); font-size:11px !important; font-weight:700; letter-spacing:.13em !important; text-transform:uppercase; }
 h1 { margin-bottom:23px; color:var(--ink); font-family:Georgia,"Times New Roman",serif; font-size:clamp(52px,8vw,86px); line-height:.94; }
 .intro > p:not(.eyebrow) { max-width:655px; margin-bottom:27px; font-size:clamp(21px,3vw,29px); line-height:1.35; letter-spacing:-.02em; }
+.intro-contact { display:grid; justify-items:start; gap:7px; }
 .intro-actions { display:flex; align-items:center; gap:13px; }
 .email { display:inline-block; color:var(--accent-dark); font-size:16px; font-weight:700; }
+.resume-link { padding:0; border:0; border-bottom:1px solid color-mix(in srgb,var(--accent-dark) 52%,transparent); background:transparent; color:var(--accent-dark); font-size:13px; font-weight:700; cursor:pointer; transition:color .18s ease,border-color .18s ease; }
+.resume-link:hover,.resume-link:focus-visible { border-color:var(--accent-dark); color:var(--ink); outline:none; }
 .copy-email { padding:5px 8px; border:1px solid transparent; border-radius:999px; background:transparent; color:var(--muted); font-size:12px; cursor:pointer; transition:background .2s,border-color .2s,color .2s; }
 .copy-email:hover,.copy-email:focus-visible { border-color:var(--line); background:var(--ground); color:var(--ink); outline:none; }
 .quiet-hint { position:absolute; right:0; bottom:26px; padding:0; border:0; background:none; color:#9b959a; font-size:10px; cursor:pointer; opacity:.65; transition:opacity .2s,color .2s; }
@@ -900,6 +903,47 @@ html[data-theme="dark"] .theme-icon-dark { opacity:1; transform:rotate(0deg) sca
   font-variant-numeric:tabular-nums;
   text-align:center;
   backdrop-filter:blur(12px);
+}
+
+/* Resume PDF viewer */
+.resume-viewer {
+  width:min(980px,calc(100vw - 34px));
+  height:min(900px,calc(100vh - 34px));
+  max-width:none;
+  max-height:none;
+  padding:0;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--paper);
+  color:var(--ink);
+  box-shadow:0 30px 100px rgba(54,39,53,.24);
+}
+.resume-viewer::backdrop { background:rgba(41,38,43,.30); backdrop-filter:blur(10px) saturate(.9); }
+.resume-viewer-shell { display:flex; width:100%; height:100%; min-height:0; flex-direction:column; }
+.resume-viewer-bar { display:flex; min-height:58px; flex:0 0 auto; align-items:center; justify-content:space-between; gap:16px; padding:8px 10px 8px 17px; border-bottom:1px solid var(--line); background:color-mix(in srgb,var(--ground) 82%,var(--paper)); }
+.resume-viewer-heading { display:flex; min-width:0; align-items:baseline; gap:9px; }
+.resume-viewer-heading span { overflow:hidden; font-family:Georgia,"Times New Roman",serif; font-size:16px; font-weight:600; text-overflow:ellipsis; white-space:nowrap; }
+.resume-viewer-heading small { color:var(--muted); font-size:9px; font-weight:700; letter-spacing:.12em; }
+.resume-viewer-actions { display:flex; flex:0 0 auto; align-items:center; gap:4px; }
+.resume-viewer-actions a,.resume-viewer-close { display:inline-flex; min-height:36px; align-items:center; justify-content:center; gap:7px; padding:0 10px; border:1px solid transparent; border-radius:9px; background:transparent; color:var(--muted); font-size:11px; font-weight:700; text-decoration:none; cursor:pointer; transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease; }
+.resume-viewer-close { width:36px; padding:0; }
+.resume-viewer-actions a:hover,.resume-viewer-actions a:focus-visible,.resume-viewer-close:hover,.resume-viewer-close:focus-visible { border-color:var(--line); background:var(--paper); color:var(--ink); outline:none; }
+.resume-viewer-actions a:active,.resume-viewer-close:active { transform:scale(.95); }
+.resume-viewer-stage { min-height:0; flex:1; padding:12px; background:color-mix(in srgb,var(--ground) 88%,var(--paper)); }
+.resume-viewer-frame { display:block; width:100%; height:100%; border:1px solid var(--line); border-radius:12px; background:white; }
+
+html[data-theme="dark"] .resume-viewer { background:var(--paper); }
+html[data-theme="dark"] .resume-viewer-bar { background:var(--ground); }
+html[data-theme="dark"] .resume-viewer-stage { background:#131114; }
+
+@media (max-width:700px) {
+  .resume-viewer { width:calc(100dvw - 12px); height:calc(100dvh - 12px); border-radius:15px; }
+  .resume-viewer-bar { min-height:54px; padding:7px 7px 7px 12px; }
+  .resume-viewer-actions a { width:36px; padding:0; }
+  .resume-viewer-actions a span { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  .resume-viewer-stage { padding:6px; }
+  .resume-viewer-frame { border-radius:9px; }
 }
 
 /* Remove old lightbox-shell chrome if cached CSS remains earlier in the sheet */

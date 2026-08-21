@@ -437,6 +437,39 @@
 
   projectLightbox?.addEventListener('pointercancel', () => { projectLightboxBackdropPointer = null; });
 
+  // Resume viewer: the PDF stays inside the portfolio while offering direct
+  // open and download actions in the viewer chrome.
+  const resumeViewer = document.querySelector('.resume-viewer');
+  const resumeFrame = document.querySelector('.resume-viewer-frame');
+
+  const openResumeViewer = () => {
+    if (!resumeViewer || !resumeFrame) return;
+    if (!resumeFrame.getAttribute('src')) resumeFrame.src = resumeFrame.dataset.src || '/assets/resume.pdf';
+    if (!resumeViewer.open) resumeViewer.showModal();
+  };
+
+  const closeResumeViewer = () => {
+    if (resumeViewer?.open) resumeViewer.close();
+  };
+
+  document.querySelector('[data-resume-open]')?.addEventListener('click', openResumeViewer);
+  document.querySelector('.resume-viewer-close')?.addEventListener('click', closeResumeViewer);
+
+  let resumeBackdropPointer = null;
+  resumeViewer?.addEventListener('pointerdown', (event) => {
+    resumeBackdropPointer = event.target === resumeViewer
+      ? { id: event.pointerId, x: event.clientX, y: event.clientY }
+      : null;
+  });
+  resumeViewer?.addEventListener('pointerup', (event) => {
+    if (!resumeBackdropPointer || resumeBackdropPointer.id !== event.pointerId) return;
+    const distance = Math.hypot(event.clientX - resumeBackdropPointer.x, event.clientY - resumeBackdropPointer.y);
+    const shouldClose = event.target === resumeViewer && distance < 6;
+    resumeBackdropPointer = null;
+    if (shouldClose) closeResumeViewer();
+  });
+  resumeViewer?.addEventListener('pointercancel', () => { resumeBackdropPointer = null; });
+
   // Website showcase. A static site cannot enumerate server folders, so /websites/sites.json
   // is the lightweight index that points each card at a folder under /websites/.
   const websiteTrack = document.querySelector('.website-carousel-track');

@@ -41,9 +41,12 @@
       <p class="eyebrow">Full-stack development · UI/UX</p>
       <h1>Hi, I’m Molly.</h1>
       <p>I’m a full-stack software developer and UI/UX designer. I build websites, desktop software, e-commerce systems, and tools for creative work.</p>
-      <div class="intro-actions">
-        <a class="email" href="mailto:mollemira@mollemira.com">mollemira@mollemira.com</a>
-        <button class="copy-email" type="button" data-email="mollemira@mollemira.com" aria-label="Copy email address">Copy</button>
+      <div class="intro-contact">
+        <div class="intro-actions">
+          <a class="email" href="mailto:mollemira@mollemira.com">mollemira@mollemira.com</a>
+          <button class="copy-email" type="button" data-email="mollemira@mollemira.com" aria-label="Copy email address">Copy</button>
+        </div>
+        <button class="resume-link" type="button" data-resume-open>view my resume</button>
       </div>
       <button class="quiet-hint" type="button" data-command-open aria-label="Message Molly"><span class="hint-desktop">Press here or <span class="shortcut"><kbd class="shortcut-key shortcut-modifier-key" data-shortcut-modifier aria-label="Command"><i class="bi bi-command" aria-hidden="true"></i></kbd><span aria-hidden="true">+</span><kbd class="shortcut-key">K</kbd></span> to message</span><span class="hint-mobile">Press here to message</span></button>
     </section>
@@ -260,6 +263,33 @@
         </div>
 
         <div class="project-viewer-zoom-readout" aria-live="polite">100%</div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="resume-viewer" aria-label="Resume PDF viewer">
+    <div class="resume-viewer-shell">
+      <header class="resume-viewer-bar">
+        <div class="resume-viewer-heading">
+          <span>Resume</span>
+          <small>PDF</small>
+        </div>
+        <div class="resume-viewer-actions" aria-label="Resume controls">
+          <a href="/assets/resume.pdf" target="_blank" rel="noreferrer" aria-label="Open resume in a new tab">
+            <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+            <span>Open in new tab</span>
+          </a>
+          <a href="/assets/resume.pdf" download="Molly-Porphura-Resume.pdf" aria-label="Download resume">
+            <i class="bi bi-download" aria-hidden="true"></i>
+            <span>Download</span>
+          </a>
+          <button type="button" class="resume-viewer-close" aria-label="Close resume viewer">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+      <div class="resume-viewer-stage">
+        <iframe class="resume-viewer-frame" title="Molly Porphura resume" data-src="/assets/resume.pdf#toolbar=0&amp;navpanes=0&amp;view=FitH"></iframe>
       </div>
     </div>
   </dialog>
