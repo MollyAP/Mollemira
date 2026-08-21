@@ -5,6 +5,7 @@
             const PENTA_VERSION = 5;
             const MIN_ZOOM = 0.05;
             const MAX_ZOOM = 100;
+            const MOBILE_LAYOUT_QUERY = '(max-width: 820px), (hover: none) and (pointer: coarse)';
             const $ = sel => document.querySelector(sel);
             const $$ = sel => [...document.querySelectorAll(sel)];
             const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -171,6 +172,9 @@
                 strokeDistance: 0,
                 strokeStartedAt: 0
             };
+
+            const workspaceTouches = new Map();
+            let workspaceGesture = null;
 
             const toolFamilies = {
                 shape: [
@@ -597,10 +601,10 @@
                 // On a phone the stage is the viewport.  Transforming it moves the
                 // viewport itself (and is what caused the canvas to drift offscreen).
                 // Keep it fixed and transform only the canvas shell instead.
-                const mobileLayout = window.matchMedia('(max-width: 820px)').matches;
+                const mobileLayout = window.matchMedia(MOBILE_LAYOUT_QUERY).matches;
                 if (mobileLayout) {
                     els.stage.style.transform = 'none';
-                    els.shell.style.transform = `translate(${state.panX}px, ${state.panY}px) scale(${state.zoom})`;
+                    els.shell.style.transform = `translate(-50%, -50%) translate(${state.panX}px, ${state.panY}px) scale(${state.zoom})`;
                 } else {
                     els.shell.style.transform = '';
                     els.stage.style.transform = `translate(${state.panX}px, ${state.panY}px) scale(${state.zoom})`;
@@ -3863,11 +3867,13 @@
                 window.addEventListener('blur', commitTextEdit);
 
                 els.shell.addEventListener('pointerdown', pointerDown);
+                els.workspace.addEventListener('pointerdown', trackWorkspaceTouch, true);
                 els.shell.addEventListener('contextmenu', e => {
                     e.preventDefault();
                 });
                 window.addEventListener('pointermove', pointerMove);
                 window.addEventListener('pointerup', pointerUp);
+                window.addEventListener('pointercancel', pointerUp);
                 els.shell.addEventListener('pointerleave', () => els.cursor.style.display = 'none');
                 els.shell.addEventListener('pointermove', updateCursor);
                 els.workspace.addEventListener('wheel', handleWorkspaceWheel, { passive: false });
@@ -3986,7 +3992,7 @@
             }
 
             function dismissMobileToolSheet() {
-                if (!window.matchMedia('(max-width: 820px)').matches) return;
+                if (!window.matchMedia(MOBILE_LAYOUT_QUERY).matches) return;
                 document.querySelector('.panel.left')?.classList.remove('is-mobile-open');
                 if (!document.querySelector('.panel.right.is-mobile-open')) {
                     document.body.classList.remove('mobile-sheet-open');
@@ -4005,7 +4011,7 @@
                     document.body.appendChild(bar);
                 }
 
-                const mobile = window.matchMedia('(max-width: 820px)').matches;
+                const mobile = window.matchMedia(MOBILE_LAYOUT_QUERY).matches;
                 const selectionTool = ['rectSelect', 'ellipseSelect', 'lassoSelect', 'magicWand'].includes(state.tool);
                 if (!mobile || !selectionTool) {
                     bar.hidden = true;
@@ -4040,7 +4046,7 @@
             function openDock(key) {
                 const app = document.querySelector('.app');
 
-                if (window.matchMedia('(max-width: 820px)').matches) {
+                if (window.matchMedia(MOBILE_LAYOUT_QUERY).matches) {
                     openMobileDock(key);
                     return;
                 }
@@ -4571,6 +4577,7 @@
             }
 
             function pointerMove(e) {
+                if (updateWorkspaceTouch(e)) return;
                 if (state.linePointDrag) {
                     updateLinePointDrag(getPoint(e));
                     return;
@@ -4642,6 +4649,7 @@
             }
 
             function pointerUp(e) {
+                if (finishWorkspaceTouch(e)) return;
                 document.body.classList.remove('is-drawing');
                 if (state.linePointDrag) {
                     state.linePointDrag = null;
@@ -5574,17 +5582,106 @@
 
             function fitStage() {
                 const wr = els.workspace.getBoundingClientRect();
-                const mobileLayout = window.matchMedia('(max-width: 820px)').matches;
-                // Mobile drawing mode deliberately covers the drawing viewport.  It
-                // avoids a tiny floating canvas and lets pan expose cropped edges.
+                const mobileLayout = window.matchMedia(MOBILE_LAYOUT_QUERY).matches;
+                // Phones start with the complete canvas visible and centered.
+                // Pinching and panning can then enlarge or reposition it.
                 state.zoom = mobileLayout
-                    ? Math.max(wr.width / state.width, wr.height / state.height)
+                    ? Math.min(
+                        Math.max(1, wr.width - 16) / state.width,
+                        Math.max(1, wr.height - 16) / state.height
+                    )
                     : Math.min((wr.width - 60) / state.width, (wr.height - 60) / state.height, 1);
                 state.panX = 0; state.panY = 0;
             }
 
+            function touchGeometry() {
+                const points = [...workspaceTouches.values()];
+                if (!points.length) return null;
+                const center = points.reduce(
+                    (sum, point) => ({ x: sum.x + point.x / points.length, y: sum.y + point.y / points.length }),
+                    { x: 0, y: 0 }
+                );
+                const distance = points.length > 1
+                    ? Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y)
+                    : null;
+                return { center, distance };
+            }
+
+            function cancelCanvasInteractionForGesture() {
+                document.body.classList.remove('is-drawing');
+                if (state.strokeBase && (state.tool === 'brush' || state.tool === 'eraser')) {
+                    activeLayer().canvas.getContext('2d').putImageData(state.strokeBase, 0, 0);
+                }
+                state.strokeBase = null;
+                state.strokePoints = [];
+                state.drawing = false;
+                state.panning = false;
+                state.linePointDrag = null;
+                state.transformDrag = null;
+                clearPreview();
+                composite(activeFrame(), true);
+            }
+
+            function trackWorkspaceTouch(e) {
+                if (e.pointerType !== 'touch') return;
+                workspaceTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+                els.workspace.setPointerCapture?.(e.pointerId);
+                if (workspaceTouches.size < 2) return;
+
+                e.preventDefault();
+                e.stopPropagation();
+                cancelCanvasInteractionForGesture();
+                const geometry = touchGeometry();
+                workspaceGesture = {
+                    lastCenter: geometry.center,
+                    lastDistance: geometry.distance
+                };
+            }
+
+            function updateWorkspaceTouch(e) {
+                if (e.pointerType !== 'touch' || !workspaceTouches.has(e.pointerId)) return false;
+                workspaceTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+                if (!workspaceGesture) return false;
+
+                e.preventDefault();
+                const geometry = touchGeometry();
+                if (!geometry) return true;
+                if (geometry.distance && workspaceGesture.lastDistance) {
+                    zoomAt(geometry.distance / workspaceGesture.lastDistance, geometry.center.x, geometry.center.y);
+                }
+                state.panX += geometry.center.x - workspaceGesture.lastCenter.x;
+                state.panY += geometry.center.y - workspaceGesture.lastCenter.y;
+                workspaceGesture.lastCenter = geometry.center;
+                workspaceGesture.lastDistance = geometry.distance;
+                updateControls();
+                drawSelectedVectorOverlay();
+                return true;
+            }
+
+            function finishWorkspaceTouch(e) {
+                if (e.pointerType !== 'touch' || !workspaceTouches.has(e.pointerId)) return false;
+                const handledGesture = Boolean(workspaceGesture);
+                workspaceTouches.delete(e.pointerId);
+                if (handledGesture) {
+                    e.preventDefault();
+                    const geometry = touchGeometry();
+                    if (geometry) {
+                        workspaceGesture.lastCenter = geometry.center;
+                        workspaceGesture.lastDistance = geometry.distance;
+                    } else {
+                        workspaceGesture = null;
+                    }
+                }
+                return handledGesture;
+            }
+
+            function syncMobileViewportSize() {
+                const height = window.visualViewport?.height || window.innerHeight;
+                document.documentElement.style.setProperty('--penta-viewport-height', `${Math.round(height)}px`);
+            }
+
             function centerCanvasInWorkspace() {
-                if (window.matchMedia('(max-width: 820px)').matches) {
+                if (window.matchMedia(MOBILE_LAYOUT_QUERY).matches) {
                     state.panX = 0;
                     state.panY = 0;
                     updateControls();
@@ -8338,13 +8435,30 @@
                 sizeAllCanvases(); fitStage(); pushHistory('New project'); renderAll(); toast('New project created.');
             }
 
-            window.addEventListener('resize', () => { fitStage(); updateControls(); drawSelectedVectorOverlay(); redrawUiOverlay(); });
+            let resizeFrame = 0;
+            let previousViewportWidth = window.innerWidth;
+            const handleViewportResize = () => {
+                const widthChanged = Math.abs(window.innerWidth - previousViewportWidth) > 2;
+                previousViewportWidth = window.innerWidth;
+                syncMobileViewportSize();
+                cancelAnimationFrame(resizeFrame);
+                resizeFrame = requestAnimationFrame(() => {
+                    if (!window.matchMedia(MOBILE_LAYOUT_QUERY).matches || widthChanged) fitStage();
+                    updateControls();
+                    drawSelectedVectorOverlay();
+                    redrawUiOverlay();
+                });
+            };
+            syncMobileViewportSize();
+            window.addEventListener('resize', handleViewportResize, { passive: true });
+            window.visualViewport?.addEventListener('resize', handleViewportResize, { passive: true });
+            window.addEventListener('orientationchange', handleViewportResize, { passive: true });
             init();
         })();
 
 // Touch workspace controls: Penta's full desktop docks become explicit bottom sheets.
 document.addEventListener('DOMContentLoaded', () => {
-    if (!window.matchMedia('(max-width: 820px)').matches) return;
+    if (!window.matchMedia('(max-width: 820px), (hover: none) and (pointer: coarse)').matches) return;
     const left = document.querySelector('.panel.left');
     const right = document.querySelector('.panel.right');
     if (!left || !right) return;

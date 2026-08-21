@@ -5,6 +5,7 @@
 
   const themeToggle = document.querySelector('.theme-toggle');
   const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const siteHeader = document.querySelector('body > header');
 
   const applyTheme = (theme, { persist = true } = {}) => {
     const next = theme === 'dark' ? 'dark' : 'light';
@@ -20,6 +21,21 @@
     themeToggle.classList.remove('theme-flip');
     void themeToggle.offsetWidth;
     themeToggle.classList.add('theme-flip');
+    if (typeof themeToggle.animate === 'function') {
+      themeToggle.getAnimations().forEach(animation => animation.cancel());
+      const tapAnimation = themeToggle.animate(
+        [
+          { transform: 'scale(1) rotate(0deg)' },
+          { transform: 'scale(.86) rotate(9deg)', offset: .45 },
+          { transform: 'scale(1) rotate(0deg)' }
+        ],
+        { duration: reduceMotion ? 180 : 460, easing: 'cubic-bezier(.2,.8,.2,1)' }
+      );
+      tapAnimation.finished.then(
+        () => themeToggle.classList.remove('theme-flip'),
+        () => themeToggle.classList.remove('theme-flip')
+      );
+    }
     applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
   });
 
@@ -127,8 +143,11 @@
     // it starts at its in-page location, moves upward naturally with scrolling,
     // then simply stops at its floating resting position.
     if (themeToggle && window.matchMedia('(max-width: 700px)').matches) {
-      const startTop = 70;
-      const restingTop = 14;
+      const headerBottom = siteHeader
+        ? siteHeader.offsetTop + siteHeader.offsetHeight
+        : 62;
+      const startTop = headerBottom + 8;
+      const restingTop = 12;
       const viewportTop = Math.max(restingTop, startTop - currentY);
       themeToggle.style.setProperty('--theme-toggle-mobile-top', `${viewportTop}px`);
     } else {
@@ -142,6 +161,7 @@
   updateFloatingControls();
   window.addEventListener('scroll', updateFloatingControls, { passive: true });
   window.addEventListener('resize', updateFloatingControls, { passive: true });
+  window.visualViewport?.addEventListener('resize', updateFloatingControls, { passive: true });
 
   backToTop?.addEventListener('click', () => {
     backToTop.classList.remove('attention');

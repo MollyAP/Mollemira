@@ -110,3 +110,21 @@ html.album-editing,html:has(body.album-editing),body.album-editing{overflow:hidd
 @media(max-width:760px){.selection-bar{overflow-x:auto;padding-left:10px}.selection-bar strong{white-space:nowrap}.selection-bar .text-button{white-space:nowrap}.viewer-header{padding-inline:6px}.viewer-header #viewer-name{font-size:12px}.viewer-actions .bare-icon{width:34px}.viewer-footer{padding-inline:10px}.settings-card{align-items:stretch;flex-direction:column}.settings-actions{width:100%}.settings-actions .button{flex:1}.media-selector{width:30px;height:30px;opacity:1;background:rgba(8,8,10,.45)}}
 
 .empty{border-style:dashed!important}.empty>span{display:none!important}.gallery-empty{column-span:all;width:min(560px,100%)}
+
+/* Keep Album's phone navigation attached to the live visual viewport while
+   mobile browser chrome expands and collapses. */
+@media(max-width:620px){
+  html,body{min-height:100%;overscroll-behavior-y:none}
+  body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+  .mobile-nav{
+    top:auto!important;
+    right:0!important;
+    bottom:0!important;
+    left:0!important;
+    height:calc(68px + env(safe-area-inset-bottom));
+    padding-bottom:calc(6px + env(safe-area-inset-bottom));
+    transform:translate3d(0,0,0);
+    backface-visibility:hidden;
+    contain:layout paint;
+  }
+}
