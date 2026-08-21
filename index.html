@@ -10,7 +10,7 @@
   <script>
     (() => {
       const saved = localStorage.getItem('mollemira-theme');
-      const theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const theme = saved || 'light';
       document.documentElement.dataset.theme = theme;
     })();
   </script>
